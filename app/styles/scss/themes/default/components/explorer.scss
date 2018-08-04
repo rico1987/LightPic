@@ -1,0 +1,84 @@
+@import "../../../mixins/index.scss";
+@import "../variables.scss";
+
+@include b(explorer) {
+    background-color: $explorer-background-color;
+    position: absolute;
+    left: 0;
+    min-width: 150px;
+    max-width: 250px;
+    height: 100%;
+
+    @include e(header) {
+        border-bottom: 1px solid $explorer-header-border-color;
+        p{
+            padding: $padding-large;
+            font-size: $explorer-header-font-size;
+            .fa-list{
+                cursor: pointer;
+                float: right;
+            }
+        }
+    }
+
+    @include e(category) {
+        padding-top: 15px;
+        >p{
+            padding: $padding-large;
+            font-size: $explorer-header-font-size;
+            color: $explorer-header-color;
+            &.folder-title{
+                .fa-plus{
+                    display: none;
+                }
+                &:hover{
+                    .fa-plus{
+                        cursor: pointer;
+                        float: right;
+                        display: inline;
+                    }
+                }
+            }
+        }
+        ul{
+            padding-left: 5px;
+            li{
+                display: block;
+                padding: $padding-normal; 
+                list-style: none;
+                position: relative;
+                &:hover, &.active{
+                    cursor: pointer;
+                    border-radius: $border-radius-sm;
+                    background-color: $explorer-category-active-background-color;
+                }
+                span{
+                    position: absolute;
+                    left: 34px;
+                }
+            }
+            &.folders{
+                li{
+                    .fa-times{
+                        display: none;
+                    }
+                    &:hover{
+                        .fa-times{
+                            float: right;
+                            display: inline;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @include e(sash) {
+        cursor: ew-resize;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: $sash-width;
+        height: 100%;
+    }
+}
