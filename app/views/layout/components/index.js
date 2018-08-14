@@ -1,3 +1,3 @@
 export { default as Explorer } from './Explorer';
-export { default as ImageFilter } from './ImageFilter';
-export { default as ImageDetail } from './ImageDetail';
+export { default as MainContent } from './MainContent';
+export { default as SideContent } from './SideContent';

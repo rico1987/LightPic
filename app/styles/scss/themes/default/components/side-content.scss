@@ -1,0 +1,29 @@
+@import "../../../mixins/index.scss";
+@import "../variables.scss";
+
+
+@include b(side-content) {
+    background-color: $side-content-background-color;
+    position: absolute;
+    right: 0;
+    min-width: 150px;
+    max-width: 250px;
+    height: 100%;
+
+    @include e(header) {
+
+    }
+
+    @include e(body) {
+
+    }
+    
+    @include e(sash) {
+        cursor: ew-resize;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: $sash-width;
+        height: 100%;
+    }
+}

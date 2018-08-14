@@ -14,11 +14,37 @@
         p{
             padding: $padding-large;
             font-size: $explorer-header-font-size;
-            .fa-list{
-                cursor: pointer;
+            span{
+                position: relative;
                 float: right;
+                .fa-list{
+                    cursor: pointer;
+                    float: right;
+                }
+                ul.header-menu{
+                    list-style: none;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    padding-top: 25px;
+                    background-color: transparent;
+                    min-width: 150px;
+                    font-size: $menu-font-size;
+                    color: $menu-color;
+                    z-index: $index-popper;
+                    li{
+                        background-color: $menu-background-color;
+                        padding: $menu-item-padding;
+                        cursor: pointer;
+                        &:hover{
+                            color: $menu-item-hover-color;
+                            background-color: $menu-item-hover-background-color;
+                        }
+                    }
+                }
             }
         }
+        
     }
 
     @include e(category) {

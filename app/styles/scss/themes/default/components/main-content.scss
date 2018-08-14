@@ -1,0 +1,10 @@
+@import "../../../mixins/index.scss";
+@import "../variables.scss";
+
+@include b(main-content) {
+    background-color: $main-content-background-color;
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 100%;
+}

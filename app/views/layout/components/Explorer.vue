@@ -2,8 +2,15 @@
     <div class="fx-explorer" v-bind:style="{ width: width + 'px'}">
         <div class="fx-explorer__header">
             <p>
-                我的图片 
-                <font-awesome-icon fa icon="list" />
+                我的图片
+                <span>
+                    <font-awesome-icon fa icon="list" @mouseenter="showHeaderMenu()" @mouseleave="hideHeaderMenu()" />
+                    <ul class="header-menu" v-show="isShowHeaderMenu" @mouseenter="showHeaderMenu()" @mouseleave="hideHeaderMenu()"   >
+                        <li @click="importImages()">导入</li>
+                        <li @click="exportImages()">导出</li>
+                        <li @click="scan()">扫描指定目录</li>
+                    </ul>
+                </span>
             </p>
         </div>
         <div class="fx-explorer__category">
@@ -59,14 +66,35 @@ export default {
             minWith: 150,
             maxWidth: 450,
             width: 250,
+            isShowHeaderMenu: false,
+            folders: [],
+            activeFolder: null
         }
     },
     created() {
+        this.getFolders()
     },
     methods: {
+        getFolders() {
+        },
         addFolder() {
             console.log('addFolder')
-        }
+        },
+        showHeaderMenu() {
+            this.isShowHeaderMenu = true
+        },
+        hideHeaderMenu() {
+            this.isShowHeaderMenu = false
+        },
+        importImages() {
+
+        },
+        exportImages() {
+
+        },
+        scan() {
+
+        },
     }
 };
 </script>

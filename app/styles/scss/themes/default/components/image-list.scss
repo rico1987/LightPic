@@ -1,0 +1,29 @@
+@import "../../../mixins/index.scss";
+@import "../variables.scss";
+
+@include b(image-list) {
+    height: 100%;
+    @include e(header) {
+        background-color: $image-list-header-background-color;
+        font-size: $image-list-header-font-size;
+        color: $image-list-header-color;
+        span{
+            display: inline-block;
+            padding: $padding-large;
+            font-size: $explorer-header-font-size;
+        }
+    }
+
+    @include e(body) {
+        height: calc(100% - 36px);
+
+        
+        @include when(drag-enter) {
+            background-color: $drag-enter-background-color;
+            border: 1px solid $border-color-light;
+        }
+
+        @include when(drag-leave) {
+        }
+    }
+}
