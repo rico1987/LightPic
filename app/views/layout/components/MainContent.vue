@@ -14,7 +14,7 @@ export default {
         return {
             left: 250,
             right: 250,
-        }
+        };
     },
     method: {
     },

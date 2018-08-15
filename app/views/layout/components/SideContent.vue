@@ -4,7 +4,6 @@
           <p></p>
       </div>
       <div class="fx-side-content__body">
-          
       </div>
       <div class="fx-side-content__sash vertical" id="SideContentSash">
       </div>
@@ -22,7 +21,7 @@ export default {
             minWith: 150,
             maxWidth: 450,
             width: 250,
-        }
+        };
     },
     method: {
     },

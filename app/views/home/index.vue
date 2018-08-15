@@ -10,7 +10,7 @@ import { ImageList } from '@/components';
 export default {
     name: 'home',
     components: {
-        ImageList
+        ImageList,
     },
     method: {
     },

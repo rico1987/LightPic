@@ -14,14 +14,13 @@ export default {
             minWith: 150,
             maxWidth: 450,
             width: 250,
-        }
+        };
     },
     created() {
     },
     methods: {
         addFolder() {
-            console.log('addFolder')
-        }
-    }
+        },
+    },
 };
 </script>
