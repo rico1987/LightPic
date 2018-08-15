@@ -261,3 +261,8 @@ export function formatDate(date, formatString) {
 
     return timeStr;
 }
+
+export function getExtension(fileName) {
+    const index = fileName.lastIndexOf('.');
+    return index > -1 ? fileName.substr(index + 1).toLowerCase() : null;
+}

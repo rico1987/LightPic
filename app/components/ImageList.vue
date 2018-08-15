@@ -10,12 +10,16 @@
         @dragenter="onDragenter"
         @dragleave="onDragleave"
         >
+            <p class="drag-tip" v-show="isDragenter">将图片拖放到这里进行添加</p>
         </div>
     </div>
 </template>
 
 <script>
 import config from "@/config";
+import {
+    getExtension
+} from "@/utils"
 export default {
     name: 'image-list',
     components: {
@@ -38,6 +42,7 @@ export default {
             e.stopPropagation();
             this.isDragenter = false;
             this.isDragleave = false;
+            console.log(e.dataTransfer.files)
         },
         onDragover(e) {
             e.preventDefault();
@@ -56,7 +61,7 @@ export default {
             this.isDragleave = true;
         },
         checkIsSupported(fileName) {
-            
+            return this.supported_formats.some(ele => ele === getExtension(fileName));
         },
     },
 };
