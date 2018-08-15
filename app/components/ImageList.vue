@@ -4,12 +4,18 @@
             <span>Title</span>
         </div>
         <div class="fx-image-list__body"
-        v-bind:class="{ 'is-drag-enter': isDragenter, 'is-drag-leave': isDragleave }">
+        v-bind:class="{ 'is-drag-enter': isDragenter, 'is-drag-leave': isDragleave }"
+        @drop="onDrop"
+        @dragover="onDragover"
+        @dragenter="onDragenter"
+        @dragleave="onDragleave"
+        >
         </div>
     </div>
 </template>
 
 <script>
+import config from "@/config";
 export default {
     name: 'image-list',
     components: {
@@ -18,11 +24,40 @@ export default {
         return {
             isDragenter: false,
             isDragleave: false,
+            supported_formats: [],
         };
     },
     created() {
+        this.supported_formats = config.supported_formats;
+    },
+    mounted() {
     },
     methods: {
+        onDrop(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.isDragenter = false;
+            this.isDragleave = false;
+        },
+        onDragover(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        },
+        onDragenter(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.isDragenter = true;
+            this.isDragleave = false;
+        },
+        onDragleave(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.isDragenter = false;
+            this.isDragleave = true;
+        },
+        checkIsSupported(fileName) {
+            
+        },
     },
 };
 </script>
