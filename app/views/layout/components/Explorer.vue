@@ -60,6 +60,8 @@
 </template>
 
 <script>
+import * as workspace from '@/service/workspace';
+
 export default {
     name: 'explorer',
     components: {
@@ -79,6 +81,7 @@ export default {
     },
     methods: {
         getFolders() {
+            workspace.renameFolder('RoWlHfHS2k6FmWKiVCQALBUG5', 'ccccc');
         },
         addFolder() {
         },

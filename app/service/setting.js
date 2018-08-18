@@ -5,6 +5,10 @@ import {
 const fs = require('fs');
 const path = require('path');
 
+export function setUserSettings(config) {
+    fs.writeFileSync(path.join(userDataPath, 'setting.json'), JSON.stringify(config));
+}
+
 export function getUserSettings() {
     let config;
     if (fs.existsSync(path.join(userDataPath, 'setting.json'))) {
@@ -13,10 +17,17 @@ export function getUserSettings() {
         config = {
             workspacePath: '',
         };
+        setUserSettings(config);
     }
     return config;
 }
 
-export function setUserSettings(config) {
-    fs.writeFileSync(path.join(userDataPath, 'setting.json'), JSON.stringify(config));
+export function getWorkspacePath() {
+    return getUserSettings().workspacePath;
+}
+
+export function saveWorkspacePath(workspacePath) {
+    const config = getUserSettings();
+    config.workspacePath = workspacePath;
+    setUserSettings(config);
 }
