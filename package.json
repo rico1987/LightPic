@@ -94,6 +94,7 @@
     "vue": "2.5.10",
     "vue-router": "3.0.1",
     "vuex": "3.0.1",
+    "websocket": "^1.0.26",
     "xlsx": "^0.11.16"
   },
   "engines": {

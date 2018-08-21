@@ -1,5 +1,6 @@
 import * as setting from './setting';
 
+
 const fs = require('fs');
 const path = require('path');
 const randomize = require('randomatic');
@@ -29,11 +30,11 @@ export function getWorkspaceRootFolders() {
     return folders;
 }
 
-export function getFolderInfo(id) {
+export function getFolderInfo(folderId) {
     const workspacePath = setting.getWorkspacePath();
     let folderInfo;
-    if (fs.existsSync(path.join(workspacePath, 'images', id, 'metadata.json'))) {
-        folderInfo = JSON.parse(fs.readFileSync(path.join(workspacePath, 'images', id, 'metadata.json'), 'utf-8'));
+    if (fs.existsSync(path.join(workspacePath, 'images', folderId, 'metadata.json'))) {
+        folderInfo = JSON.parse(fs.readFileSync(path.join(workspacePath, 'images', folderId, 'metadata.json'), 'utf-8'));
     } else {
         folderInfo = null;
     }
@@ -77,12 +78,12 @@ export function addWorkspaceFolder(folderInfo) {
     return true;
 }
 
-export function renameFolder(id, name) {
+export function renameFolder(folderId, name) {
     const workspaceInfo = getWorkspaceInfo();
     let { folders } = workspaceInfo;
     // eslint-disable-next-line
     folders = traverse(folders).map(function () {
-        if (this.node.id === id) {
+        if (this.node.id === folderId) {
             this.node.name = name;
         }
     });
@@ -90,6 +91,28 @@ export function renameFolder(id, name) {
     setWorkspaceInfo(workspaceInfo);
 }
 
-export function setIconColor(id, color) {
-    
+export function setIconColor(folderId, color) {
+    const workspaceInfo = getWorkspaceInfo();
+    let { folders } = workspaceInfo;
+    // eslint-disable-next-line
+    folders = traverse(folders).map(function () {
+        if (this.node.id === folderId) {
+            this.node.color = color;
+        }
+    });
+    workspaceInfo.folders = folders;
+    setWorkspaceInfo(workspaceInfo);
+}
+
+export function removeFolder(folderId) {
+    const workspaceInfo = getWorkspaceInfo();
+    let { folders } = workspaceInfo;
+    // eslint-disable-next-line
+    folders = traverse(folders).map(function () {
+        if (this.node.id === folderId) {
+            this.remove();
+        }
+    });
+    workspaceInfo.folders = folders;
+    setWorkspaceInfo(workspaceInfo);
 }

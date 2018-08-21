@@ -81,7 +81,7 @@ export default {
     },
     methods: {
         getFolders() {
-            workspace.renameFolder('RoWlHfHS2k6FmWKiVCQALBUG5', 'ccccc');
+            workspace.removeFolder('RoWlHfHS2k6FmWKiVCQALBUG5', 'ccccc');
         },
         addFolder() {
         },
