@@ -2,7 +2,6 @@ const WebSocketServer = require('websocket').server;
 const http = require('http');
 
 export default function initWebsocket() {
-    debugger;
     const server = http.createServer((request, response) => {
         response.writeHead(404);
         response.end();

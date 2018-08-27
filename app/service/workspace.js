@@ -6,11 +6,18 @@ const path = require('path');
 const randomize = require('randomatic');
 const traverse = require('traverse');
 
+/**
+ * 设置工作区信息
+ * @param {*} workspaceInfo
+ */
 export function setWorkspaceInfo(workspaceInfo) {
     const workspacePath = setting.getWorkspacePath();
     fs.writeFileSync(path.join(workspacePath, 'workspace.json'), JSON.stringify(workspaceInfo));
 }
 
+/**
+ * 获取工作区信息
+ */
 export function getWorkspaceInfo() {
     const workspacePath = setting.getWorkspacePath();
     let workspaceInfo;
@@ -25,28 +32,39 @@ export function getWorkspaceInfo() {
     return workspaceInfo;
 }
 
+/**
+ * 获取工作区根路径下文件夹
+ */
 export function getWorkspaceRootFolders() {
     const { folders } = getWorkspaceInfo();
     return folders;
 }
 
+/**
+ * 从文件夹下metadata.json获取文件夹信息
+ * @param {*} folderId
+ */
 export function getFolderInfo(folderId) {
     const workspacePath = setting.getWorkspacePath();
     let folderInfo;
-    if (fs.existsSync(path.join(workspacePath, 'images', folderId, 'metadata.json'))) {
-        folderInfo = JSON.parse(fs.readFileSync(path.join(workspacePath, 'images', folderId, 'metadata.json'), 'utf-8'));
+    if (fs.existsSync(path.join(workspacePath, 'folders', folderId, 'metadata.json'))) {
+        folderInfo = JSON.parse(fs.readFileSync(path.join(workspacePath, 'folders', folderId, 'metadata.json'), 'utf-8'));
     } else {
         folderInfo = null;
     }
     return folderInfo;
 }
 
+/**
+ * 添加工作区文件夹
+ * @param {*} folderInfo
+ */
 export function addWorkspaceFolder(folderInfo) {
     const workspaceInfo = getWorkspaceInfo();
     const { folders } = workspaceInfo;
     const workspacePath = setting.getWorkspacePath();
     const id = randomize('Aa0', 25);
-    const realPath = path.join(workspacePath, 'images', id);
+    const realPath = path.join(workspacePath, 'folders', id);
     if (fs.existsSync(realPath)) {
         return false;
     }
@@ -59,6 +77,7 @@ export function addWorkspaceFolder(folderInfo) {
                     id,
                     name: folderInfo.name,
                     tags: folderInfo.tags,
+                    iconColor: folderInfo.iconColor,
                     modificationTime: new Date().getTime(),
                     children: [],
                 });
@@ -70,6 +89,7 @@ export function addWorkspaceFolder(folderInfo) {
             id,
             name: folderInfo.name,
             tags: folderInfo.tags,
+            iconColor: folderInfo.iconColor,
             modificationTime: new Date().getTime(),
             children: [],
         });
@@ -78,6 +98,11 @@ export function addWorkspaceFolder(folderInfo) {
     return true;
 }
 
+/**
+ * 重命名工作区文件夹
+ * @param {*} folderId
+ * @param {*} name
+ */
 export function renameFolder(folderId, name) {
     const workspaceInfo = getWorkspaceInfo();
     let { folders } = workspaceInfo;
@@ -91,6 +116,11 @@ export function renameFolder(folderId, name) {
     setWorkspaceInfo(workspaceInfo);
 }
 
+/**
+ * 设置工作区文件夹icon
+ * @param {*} folderId
+ * @param {*} color
+ */
 export function setIconColor(folderId, color) {
     const workspaceInfo = getWorkspaceInfo();
     let { folders } = workspaceInfo;
@@ -104,9 +134,19 @@ export function setIconColor(folderId, color) {
     setWorkspaceInfo(workspaceInfo);
 }
 
+/**
+ * 移除工作区文件夹
+ * @param {*} folderId
+ */
 export function removeFolder(folderId) {
     const workspaceInfo = getWorkspaceInfo();
     let { folders } = workspaceInfo;
+    const workspacePath = setting.getWorkspacePath();
+    const realPath = path.join(workspacePath, 'folders', folderId);
+    if (fs.existsSync(realPath)) {
+        fs.rmdirSync(realPath);
+    }
+    // todo: 移除只在当前移除文件夹中存在的图片
     // eslint-disable-next-line
     folders = traverse(folders).map(function () {
         if (this.node.id === folderId) {
@@ -116,3 +156,5 @@ export function removeFolder(folderId) {
     workspaceInfo.folders = folders;
     setWorkspaceInfo(workspaceInfo);
 }
+
+

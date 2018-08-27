@@ -5,10 +5,17 @@ import {
 const fs = require('fs');
 const path = require('path');
 
+/**
+ * 设置用户配置
+ * @param {*} config
+ */
 export function setUserSettings(config) {
     fs.writeFileSync(path.join(userDataPath, 'setting.json'), JSON.stringify(config));
 }
 
+/**
+ * 获取用户配置
+ */
 export function getUserSettings() {
     let config;
     if (fs.existsSync(path.join(userDataPath, 'setting.json'))) {
@@ -22,11 +29,18 @@ export function getUserSettings() {
     return config;
 }
 
+/**
+ * 获取工作区路径
+ */
 export function getWorkspacePath() {
     return getUserSettings().workspacePath;
 }
 
-export function saveWorkspacePath(workspacePath) {
+/**
+ * 设置工作区路径
+ * @param {*} workspacePath
+ */
+export function setWorkspacePath(workspacePath) {
     const config = getUserSettings();
     config.workspacePath = workspacePath;
     setUserSettings(config);
